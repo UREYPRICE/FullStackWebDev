@@ -1,38 +1,45 @@
-import { useState, useEffect } from "react";
-import course from "./components/Course";
-const App = () => {
-  console.log(course);
-  return course.map((course) => (
-    <div>
-      <Header course={course} />
-      {course.parts.map((part) => (
-        <Course name={part.name} ex={part.exercises} />
-      ))}
+import { useState } from "react";
+import Note from "./components/Note";
 
-      <Total total={course.parts} />
-    </div>
-  ));
-};
+const App = (props) => {
+  const [notes, setNotes] = useState(props.notes);
+  const [value, setValue] = useState ('HELLO THERE TYPE HERE!!!');
+  
+const AddNote = (event) => {
+  event.preventDefault()
+  const newObj = {
+    content : value,
+    important: Math.random() > 0.5,
+    id: notes.length + 1,
+    }
+    setNotes(notes.concat(newObj))
+    setValue('')
+}
 
-const Header = ({ course }) => {
-  console.log(course.name);
-  return <h1>{course.name}</h1>;
-};
+const handleChange = (event) => {
+  setValue(event.target.value)
 
-const Course = ({ ex, name }) => {
+
+}
+
+  
   return (
-    <>
-      <p>{name}</p>
-      <h8>{ex}</h8>
-    </>
-  );
-};
+    <div>
+      <h1>Notes</h1>
+      <ul>
+        {notes.map((note) => (
+          <Note key={note.id} note={note} />
+        ))}
+      </ul>
+<form onSubmit={AddNote}>
+  <input value={value} onChange = {handleChange} type="text" />
+  <button type="submit"> Submit </button>
 
-const Total = ({ total }) => {
-  const totalex = total.reduce((i, total) => {
-    return i + total.exercises;
-  }, 0);
-  return <h4>Total of {totalex} exercises</h4>;
+
+</form>
+      
+    </div>
+  );
 };
 
 export default App;
