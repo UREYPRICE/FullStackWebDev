@@ -20,7 +20,20 @@ setname(event.target.value)
 const addName = (event)=>{
  event.preventDefault()
  
- 
+const nameArr = value.map((name)=> {
+
+    if(name.name === value){
+        return true
+    }
+    else{
+       return false
+    }
+
+
+
+
+} )
+
  const addobj = {
     name : name
  }
@@ -29,7 +42,7 @@ const addName = (event)=>{
 setvalue(value.concat(addobj))
 
 setname('')
-
+console.log(nameArr)
 }
 
 
