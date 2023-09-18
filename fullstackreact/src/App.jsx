@@ -38,10 +38,12 @@ const AddNote = (event) => {
     axios
     .post('http://localhost:3001/notes', newObj)
     .then(response => {
-      console.log(response)
+      
+      setNotes(notes.concat(response.data))
+      setValue('')
     })
 
-    setValue('')
+    
 }
 
 const handleChange = (event) => {
