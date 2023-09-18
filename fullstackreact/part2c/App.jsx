@@ -35,12 +35,7 @@ const AddNote = (event) => {
     important: Math.random() > 0.5,
     id: notes.length + 1,
     }
-    axios
-    .post('http://localhost:3001/notes', newObj)
-    .then(response => {
-      console.log(response)
-    })
-
+    setNotes(notes.concat(newObj))
     setValue('')
 }
 
