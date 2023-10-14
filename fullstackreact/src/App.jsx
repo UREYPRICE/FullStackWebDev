@@ -1,78 +1,91 @@
-import axios from "axios";
-import { useState, useEffect } from "react";
-import Note from "./components/Note";
+import axios from 'axios'
+import { useEffect, useState} from 'react'
 
-const App = (props) => {
-  const [notes, setNotes] = useState([]);
-  const [value, setValue] = useState ('HELLO THERE TYPE HERE!!!');
-  const [show, setShow] = useState(true)
-  
+
+const App = ()=> {
+
+const [value, setvalue] = useState([])
+
+const [name, setname] = useState('UREY')
+const [number, setnumber] = useState('12345')
+
 useEffect(()=>{
-console.log('Effect coming Throuh!!!');
-
 axios
-.get('http://localhost:3001/notes')
+.get('http://localhost:3001/persons')
 .then(res=>{
-console.log('Waqar Always fullfils promise!!');
-setNotes(res.data)
-
+  setvalue(res.data)
 })
 
 
 },[])
 
-console.log('render', notes.length, 'notes')
+const handleChange = (event)=> {
 
-
-const notesToShow = show ? notes : notes.filter(notes => notes.important)
-
-
-
-const AddNote = (event) => {
-  event.preventDefault()
-  const newObj = {
-    content : value,
-    important: Math.random() > 0.5,
-    id: notes.length + 1,
-    }
-    axios
-    .post('http://localhost:3001/notes', newObj)
-    .then(response => {
-      
-      setNotes(notes.concat(response.data))
-      setValue('')
-    })
-
-    
-}
-
-const handleChange = (event) => {
-  setValue(event.target.value)
-
+setname(event.target.value)
 
 }
+const handleChangeNumber = (event)=> {
 
+  setnumber(event.target.value)
   
-  return (
-    <div>
-      <h1>Notes</h1>
-      <button onClick={() => setShow(!show)}>
-          show {show ? 'important' : 'all' }
-        </button>
-      <ul>
-        {notesToShow.map((note) => (
-          <Note key={note.id} note={note} />
-        ))}
-      </ul>
-<form onSubmit={AddNote}>
-  <input value={value} onChange = {handleChange} type="text" />
-  <button type="submit"> Submit </button>
+  }
+
+const arr = [];
+const nameArr = () => (value.map((obj)=>(arr.push(obj.name))))
+nameArr();
+
+console.log(arr)
+
+const addName = (event)=>{
+ event.preventDefault()
+ 
+ if(arr.includes(name) || number === '' ){
+alert(`Name ${name} already exists`)
+
+ }
+else{
+  const addobj = {
+    name : name,
+    number: number
+ }
 
 
+setvalue(value.concat(addobj))
+
+setname('') 
+setnumber('')
+}
+ 
+ 
+
+}
+
+
+return (
+<div>
+<h1>PhoneBook</h1>
+
+<form onSubmit={addName}>
+
+<label htmlFor="name">Name: </label> <input  id= "name"  value={name} onChange = {handleChange} type="text" />
+<br />
+<label htmlFor="number">Number:</label> <input id = "number" value={number} onChange={handleChangeNumber} type="text" />
+<br />
+<button type='submit'>Add</button>
 </form>
-      
-    </div>
-  );
-};
+<h1>Numbers</h1>
+ {value.map((name)=>(
+    <p>
+      {name.name}  {name.number}
+    </p>
+
+
+))}
+
+</div>
+
+)
+
+}
 
 export default App;

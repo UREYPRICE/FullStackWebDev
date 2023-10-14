@@ -1,104 +1,24 @@
 {
-  "notes": [
-    {
-      "id": 1,
-      "content": "HTML is easy",
-      "important": true
+  "persons":[
+    { 
+      "name": "Arto Hellas", 
+      "number": "040-123456",
+      "id": 1
     },
-    {
-      "id": 2,
-      "content": "Browser can execute only JavaScript",
-      "important": false
+    { 
+      "name": "Ada Lovelace", 
+      "number": "39-44-5323523",
+      "id": 2
     },
-    {
-      "id": 3,
-      "content": "GET and POST are the most important methods of HTTP protocol",
-      "important": true
+    { 
+      "name": "Dan Abramov", 
+      "number": "12-43-234345",
+      "id": 3
     },
-    {
-      "content": "HELLO THERE TYPE HERE!!!",
-      "important": false,
+    { 
+      "name": "Mary Poppendieck", 
+      "number": "39-23-6423122",
       "id": 4
-    },
-    {
-      "content": "HELLO THERE TYPE HERE!!!",
-      "important": true,
-      "id": 5
-    },
-    {
-      "content": "kajlakjlfkalkdf",
-      "important": false,
-      "id": 6
-    },
-    {
-      "content": "holla",
-      "important": false,
-      "id": 7
-    },
-    {
-      "content": "olla",
-      "important": false,
-      "id": 8
-    },
-    {
-      "content": "yollo",
-      "important": true,
-      "id": 9
-    },
-    {
-      "content": "",
-      "important": true,
-      "id": 10
-    },
-    {
-      "content": "olla",
-      "important": true,
-      "id": 11
-    },
-    {
-      "content": "ello eoolll\\",
-      "important": true,
-      "id": 12
-    },
-    {
-      "content": "hii",
-      "important": true,
-      "id": 13
-    },
-    {
-      "content": "yues it workedd",
-      "important": true,
-      "id": 14
-    },
-    {
-      "content": "",
-      "important": true,
-      "id": 15
-    },
-    {
-      "content": "",
-      "important": false,
-      "id": 16
-    },
-    {
-      "content": "",
-      "important": true,
-      "id": 17
-    },
-    {
-      "content": "",
-      "important": true,
-      "id": 18
-    },
-    {
-      "content": "",
-      "important": false,
-      "id": 19
-    },
-    {
-      "content": "jalskdfjalkdjf",
-      "important": true,
-      "id": 20
     }
   ]
 }
