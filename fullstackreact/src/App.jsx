@@ -1,5 +1,6 @@
 import axios from 'axios'
 import { useEffect, useState} from 'react'
+import personsService from './services/persons'
 
 
 const App = ()=> {
@@ -10,8 +11,8 @@ const [name, setname] = useState('UREY')
 const [number, setnumber] = useState('12345')
 
 useEffect(()=>{
-axios
-.get('http://localhost:3001/persons')
+personsService
+.getAll()
 .then(res=>{
   setvalue(res.data)
 })
