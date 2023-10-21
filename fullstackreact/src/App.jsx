@@ -48,12 +48,18 @@ else{
     name : name,
     number: number
  }
-
-
-setvalue(value.concat(addobj))
+console.log(`name : ${addobj.name} & Number : ${addobj.number} showed to the web`  );
+axios
+.post('http://localhost:3001/persons', addobj)
+.then(response => {
+  setvalue(value.concat(addobj))
 
 setname('') 
 setnumber('')
+})
+
+
+
 }
  
  
