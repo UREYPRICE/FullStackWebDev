@@ -68,6 +68,23 @@ setnumber('')
 }
 
 
+const deleteNumber = (id) => {
+ const baseUrl = `http://localhost:3001/persons/${id}`
+axios
+.delete(baseUrl)
+.then(() => {
+  // Update the state to remove the deleted entry
+  setvalue(value.filter(person => person.id !== id));
+})
+.catch(error => {
+  console.error('Error deleting person:', error);
+});
+
+}
+
+
+
+
 return (
 <div>
 <h1>PhoneBook</h1>
@@ -81,12 +98,11 @@ return (
 <button type='submit'>Add</button>
 </form>
 <h1>Numbers</h1>
- {value.map((name)=>(
-    <p>
-      {name.name}  {name.number}
-    </p>
-
-
+{value.map((person) => (
+  <p key={person.id}>
+    {person.name} {person.number}
+    <button onClick={() => deleteNumber(person.id)}>Delete</button>
+  </p>
 ))}
 
 </div>
