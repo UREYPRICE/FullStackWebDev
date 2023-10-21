@@ -19,6 +19,7 @@ personsService
 
 
 },[])
+console.log(value)
 
 const handleChange = (event)=> {
 
@@ -35,8 +36,6 @@ const arr = [];
 const nameArr = () => (value.map((obj)=>(arr.push(obj.name))))
 nameArr();
 
-console.log(arr)
-
 const addName = (event)=>{
  event.preventDefault()
  
@@ -47,7 +46,8 @@ alert(`Name ${name} already exists`)
 else{
   const addobj = {
     name : name,
-    number: number
+    number: number,
+    id: value.length + 1
  }
 console.log(`name : ${addobj.name} & Number : ${addobj.number} showed to the web`  );
 personsService
@@ -73,12 +73,14 @@ const deleteNumber = (id) => {
 axios
 .delete(baseUrl)
 .then(() => {
-  // Update the state to remove the deleted entry
   setvalue(value.filter(person => person.id !== id));
 })
 .catch(error => {
   console.error('Error deleting person:', error);
 });
+
+
+console.log(id);
 
 }
 
@@ -101,6 +103,7 @@ return (
 {value.map((person) => (
   <p key={person.id}>
     {person.name} {person.number}
+    {person.id}
     <button onClick={() => deleteNumber(person.id)}>Delete</button>
   </p>
 ))}
