@@ -9,6 +9,7 @@ const [value, setvalue] = useState([])
 
 const [name, setname] = useState('UREY')
 const [number, setnumber] = useState('12345')
+const [message, setMessage] = useState(null)
 
 useEffect(()=>{
 personsService
@@ -49,6 +50,12 @@ else{
     number: number,
     id: value.length + 1
  }
+
+ setErrorMessage(`Name ${addobj.name} Added` )
+
+
+
+
 console.log(`name : ${addobj.name} & Number : ${addobj.number} showed to the web`  );
 personsService
 .create(addobj)
@@ -57,6 +64,8 @@ personsService
 
 setname('') 
 setnumber('')
+
+
 })
 
 
@@ -85,12 +94,48 @@ console.log(id);
 }
 
 
+const Notification = ({message}) => {
+
+useEffect(  ()=>{
+
+const timer = setTimeout(() => {
+  setMessage(null)
+}, 5000);
+
+  return () => {
+clearTimeout(timer)
+
+  };
+
+},[message]);
+
+
+
+  if (message===null) {
+    
+    return null
+
+  }
+
+  return (
+<div className='message'>
+
+{message}
+
+</div>
+
+  )
+
+
+}
+
 
 
 return (
 <div>
 <h1>PhoneBook</h1>
 
+<Notification message={message}/>
 <form onSubmit={addName}>
 
 <label htmlFor="name">Name: </label> <input  id= "name"  value={name} onChange = {handleChange} type="text" />
