@@ -51,7 +51,7 @@ else{
     id: value.length + 1
  }
 
- setErrorMessage(`Name ${addobj.name} Added` )
+ setMessage(`Name ${addobj.name} Added` )
 
 
 
