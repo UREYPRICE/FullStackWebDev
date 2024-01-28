@@ -1,162 +1,109 @@
-import axios from 'axios'
-import { useEffect, useState} from 'react'
-import personsService from './services/persons'
+import axios from "axios";
+import { useState, useEffect } from "react";
+import Note from "./components/Note";
+import noteService from './services/notes'
 
-
-const App = ()=> {
-
-const [value, setvalue] = useState([])
-
-const [name, setname] = useState('UREY')
-const [number, setnumber] = useState('12345')
-const [message, setMessage] = useState(null)
-
+const App = (props) => {
+  const [notes, setNotes] = useState([]);
+  const [value, setValue] = useState ('HELLO THERE TYPE HERE!!!');
+  const [show, setShow] = useState(false)
+  
 useEffect(()=>{
-personsService
+console.log('Effect coming Throuh!!!');
+
+noteService
 .getAll()
 .then(res=>{
-  setvalue(res.data)
+console.log('Waqar Always fullfils promise!!');
+setNotes(res.data)
+
 })
 
 
 },[])
-console.log(value)
 
-const handleChange = (event)=> {
+console.log('render', notes.length, 'notes')
 
-setname(event.target.value)
 
-}
-const handleChangeNumber = (event)=> {
+const notesToShow = show ? notes : notes.filter(notes => notes.important)
 
-  setnumber(event.target.value)
+
+
+const AddNote = (event) => {
+  event.preventDefault()
+  const newObj = {
+    content : value,
+    important: Math.random() > 0.5,
   
-  }
+    }
+    noteService
+    .create(newObj)
+    .then(response => {
+      
+      setNotes(notes.concat(response.data))
+      setValue('')
+    })
 
-const arr = [];
-const nameArr = () => (value.map((obj)=>(arr.push(obj.name))))
-nameArr();
-
-const addName = (event)=>{
- event.preventDefault()
- 
- if(arr.includes(name) || number === '' ){
-alert(`Name ${name} already exists`)
-
- }
-else{
-  const addobj = {
-    name : name,
-    number: number,
-    id: value.length + 1
- }
-
- setMessage(`Name ${addobj.name} Added` )
-
-
-
-
-console.log(`name : ${addobj.name} & Number : ${addobj.number} showed to the web`  );
-personsService
-.create(addobj)
-.then(response => {
-  setvalue(value.concat(addobj))
-
-setname('') 
-setnumber('')
-
-
-})
-
-
-
-}
- 
- 
-
-}
-
-
-const deleteNumber = (id) => {
- const baseUrl = `http://localhost:3001/persons/${id}`
-axios
-.delete(baseUrl)
-.then(() => {
-  setvalue(value.filter(person => person.id !== id));
-})
-.catch(error => {
-  console.error('Error deleting person:', error);
-});
-
-
-console.log(id);
-
-}
-
-
-const Notification = ({message}) => {
-
-useEffect(  ()=>{
-
-const timer = setTimeout(() => {
-  setMessage(null)
-}, 5000);
-
-  return () => {
-clearTimeout(timer)
-
-  };
-
-},[message]);
-
-
-
-  if (message===null) {
     
-    return null
+}
 
-  }
-
-  return (
-<div className='message'>
-
-{message}
-
-</div>
-
-  )
+const handleChange = (event) => {
+  setValue(event.target.value)
 
 
 }
 
 
+const toggles = (id) => {
 
-return (
-<div>
-<h1>PhoneBook</h1>
+  const url = `http://localhost:3001/notes/${id}`
+const note = notes.find(n => n.id === id)
+const changedNote = {...note, important : !note.important}
 
-<Notification message={message}/>
-<form onSubmit={addName}>
+noteService
+.update (id, changedNote)
+.then(
+response => {
 
-<label htmlFor="name">Name: </label> <input  id= "name"  value={name} onChange = {handleChange} type="text" />
-<br />
-<label htmlFor="number">Number:</label> <input id = "number" value={number} onChange={handleChangeNumber} type="text" />
-<br />
-<button type='submit'>Add</button>
-</form>
-<h1>Numbers</h1>
-{value.map((person) => (
-  <p key={person.id}>
-    {person.name} {person.number}
-    {person.id}
-    <button onClick={() => deleteNumber(person.id)}>Delete</button>
-  </p>
-))}
-
-</div>
+  setNotes(notes.map(n=>n.id !== id ? n: response.data))
+}
 
 )
 
+
+
 }
+
+  
+  return (
+    <div>
+      <h1>Notes</h1>
+      <button onClick={() => setShow(!show)}>
+          show {show ? 'important' : 'all' }
+        </button>
+      <ul>
+        {notesToShow.map((note) => (
+          <Note 
+          
+          key={note.id} 
+          note={note} 
+          toggle={()=>toggles(note.id)}
+          
+          
+          />
+
+
+        ))}
+      </ul>
+<form onSubmit={AddNote}>
+  <input value={value} onChange = {handleChange} type="text" />
+  <button type="submit"> Submit </button>
+
+
+</form>
+      
+    </div>
+  );
+};
 
 export default App;

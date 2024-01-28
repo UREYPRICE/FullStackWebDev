@@ -1,3 +1,34 @@
 {
-  "persons": []
+  "notes": [
+    {
+      "id": 1,
+      "content": "xyzzz",
+      "important": false
+    },
+    {
+      "content": "HELLO THERE TYPE HERE!!!",
+      "important": true,
+      "id": 2
+    },
+    {
+      "content": "",
+      "important": false,
+      "id": 3
+    },
+    {
+      "content": "",
+      "important": true,
+      "id": 4
+    },
+    {
+      "content": "",
+      "important": false,
+      "id": 5
+    },
+    {
+      "content": "",
+      "important": false,
+      "id": 6
+    }
+  ]
 }
